@@ -1,0 +1,38 @@
+/*STARS RATING*/
+.rating-list {
+  display: inline-block;
+  list-style: none;
+}
+
+.rating-list li {
+  float: right;
+  color: #ddd;
+  padding: 10px 5px;
+}
+
+.rating-list li:hover,
+.rating-list li:hover ~ li,
+.rating-list li.selected {
+  color: #37474f;
+  cursor: pointer;
+}
+
+/*LIKES*/
+.likes-list {
+  display: inline-block;
+  list-style: none;
+}
+
+.likes-list li {
+  float: right;
+  color: #ddd;
+  padding: 10px 5px;
+}
+
+.likes-list li:hover,
+.likes-list li.selected {
+  color: #37474f;
+  cursor: pointer;
+}
+
+
