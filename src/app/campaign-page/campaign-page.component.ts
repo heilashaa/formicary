@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as M from 'materialize-css/dist/js/materialize';
 
 @Component({
   selector: 'app-campaign-page',
@@ -10,6 +11,7 @@ export class CampaignPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    M.AutoInit();
   }
 
 }
