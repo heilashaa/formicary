@@ -1,24 +1,65 @@
-<p>login-page works!</p>
 <div class="row">
   <h4 class="center">Please, sign in with e-mail</h4>
   <div class="card col l4 offset-l4">
-    <form class="col card-content s12 center" style="padding-bottom: 6px">
+    <div *ngIf="auth.error$ | async as error">
+      {{ error }}
+    </div>
+    <div *ngIf="message">
+      {{ message }}
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="col card-content s12 center" style="padding-bottom: 6px">
       <div class="row">
+<!--        EMAIL-->
         <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
-          <input id="email" type="email" class="validate" required autocomplete="off">
+          <input
+            formControlName="email"
+            [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+            id="email" type="email" autocomplete="off">
           <label for="email">E-mail</label>
-          <span class="helper-text" data-error="wrong email" data-success="ok!"></span>
+          <span
+            *ngIf="form.get('email').touched &&
+            form.get('email').invalid &&
+            form.get('email').errors.required"
+            class="helper-text" data-error="required field"></span>
+          <span
+            *ngIf="form.get('email').touched &&
+            form.get('email').invalid &&
+            form.get('email').errors.email"
+            class="helper-text" data-error="wrong email format"></span>
         </div>
+<!--        PASSWORD-->
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input id="password" type="password" class="validate" required autocomplete="off">
+          <input
+            formControlName="password"
+            [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
+            id="password" type="password" autocomplete="off">
           <label for="password">Password</label>
-          <span class="helper-text" data-error="wrong password" data-success="ok!"></span>
+          <span
+            *ngIf="form.get('password').touched &&
+            form.get('password').invalid &&
+            form.get('password').errors.required"
+            class="helper-text" data-error="required field"></span>
+          <span
+            *ngIf="form.get('password').touched &&
+            form.get('password').invalid &&
+            form.get('password').errors.minlength"
+                class="helper-text"
+                [attr.data-error]="'Min password length '+
+            form.get('password').errors.minlength.actualLength+
+            '/'+
+            form.get('password').errors.minlength.requiredLength"
+          ></span>
         </div>
       </div>
-      <button class="col s12 btn waves-effect waves-light" type="submit" name="submit">LOGIN</button>
+      <button
+        [disabled]="form.invalid || submitted"
+        class="col s12 btn waves-effect waves-light"
+        type="submit" name="submit"
+      >LOGIN</button>
     </form>
+<!--    SOCIAL LOGIN-->
     <div class="col card-content s12" style="padding-top: 6px">
       <div class="separator"></div>
       <button class="btn waves-effect waves-light col s12  left-align" type="submit" name="action">
@@ -32,7 +73,7 @@
       </button>
     </div>
     <div class="col card-content s12">
-      <span>Haven't got an account? <a href=""> Sign up!</a></span>
+      <span>Haven't got an account? <a [routerLink]="['/profile','registration']"> Sign up!</a></span>
     </div>
   </div>
 </div>

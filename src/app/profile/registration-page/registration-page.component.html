@@ -1,32 +1,87 @@
-<p>registration-page works!</p>
 <div class="row">
   <h4 class="center">Please, sign up</h4>
   <div class="card col l4 offset-l4">
-    <form class="col card-content s12 center" style="padding-bottom: 6px">
+    <div *ngIf="auth.error$ | async as error">
+      {{ error }}
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="col card-content s12 center" style="padding-bottom: 6px">
       <div class="row">
+<!--        USERNAME-->
         <div class="input-field col s12">
           <i class="material-icons prefix">person</i>
-          <input id="username" type="text" class="validate" required autocomplete="off">
+          <input
+            formControlName="username"
+            [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid}"
+            id="username" type="text" autocomplete="off">
           <label for="username">Username</label>
-          <span class="helper-text" data-error="wrong username" data-success="ok!"></span>
+          <span
+            *ngIf="form.get('username').touched &&
+            form.get('username').invalid &&
+            form.get('username').errors.required"
+            class="helper-text" data-error="required field"></span>
+          <span
+            *ngIf="form.get('username').touched &&
+            form.get('username').invalid &&
+            form.get('username').errors.minlength"
+            class="helper-text"
+            [attr.data-error]="'Min username length '+
+            form.get('username').errors.minlength.actualLength+
+            '/'+
+            form.get('username').errors.minlength.requiredLength"
+          ></span>
         </div>
+<!--        EMAIL-->
         <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
-          <input id="email" type="email" class="validate" required autocomplete="off">
+          <input
+            formControlName="email"
+            [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+            id="email" type="email" autocomplete="off">
           <label for="email">E-mail</label>
-          <span class="helper-text" data-error="wrong email" data-success="ok!"></span>
+          <span
+            *ngIf="form.get('email').touched &&
+            form.get('email').invalid &&
+            form.get('email').errors.required"
+            class="helper-text" data-error="required field"></span>
+          <span
+            *ngIf="form.get('email').touched &&
+            form.get('email').invalid &&
+            form.get('email').errors.email"
+            class="helper-text" data-error="wrong email format"></span>
         </div>
+<!--        PASSWORD-->
         <div class="input-field col s12">
           <i class="material-icons prefix">lock</i>
-          <input id="password" type="password" class="validate" required autocomplete="off">
+          <input
+            [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
+            formControlName="password"
+            id="password" type="password" autocomplete="off">
           <label for="password">Password</label>
-          <span class="helper-text" data-error="wrong password" data-success="ok!"></span>
+          <span
+            *ngIf="form.get('password').touched &&
+            form.get('password').invalid &&
+            form.get('password').errors.required"
+            class="helper-text" data-error="required field"></span>
+          <span
+            *ngIf="form.get('password').touched &&
+            form.get('password').invalid &&
+            form.get('password').errors.minlength"
+            class="helper-text"
+            [attr.data-error]="'Min password length '+
+            form.get('password').errors.minlength.actualLength+
+            '/'+
+            form.get('password').errors.minlength.requiredLength"
+          ></span>
         </div>
       </div>
-      <button class="col s12 btn waves-effect waves-light" type="submit" name="submit">REGISTER NOW</button>
+      <button
+        [disabled]="form.invalid || submitted"
+        class="col s12 btn waves-effect waves-light"
+        type="submit" name="submit"
+      >REGISTER NOW</button>
     </form>
     <div class="col card-content s12">
-      <span>Already have an account? <a href=""> Sign in!</a></span>
+      <span>Already have an account? <a [routerLink]="['/profile','login']"> Sign in!</a></span>
     </div>
   </div>
 </div>
