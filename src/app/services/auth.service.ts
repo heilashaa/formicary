@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {AuthResponse, User} from '../interfaces/interfaces';
+import {AuthResponse, LoginRequest, User} from '../interfaces/interfaces';
 import {Observable, Subject, throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {catchError, map, tap} from 'rxjs/operators';
@@ -20,16 +20,36 @@ export class AuthService {
     }
     return localStorage.getItem('api-token');
   }
-
-  login(user: User): Observable<any> {
+/*  login(user: User): Observable<any> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(`${environment.apiUrl}auth/login`, user, {headers}) /*JSON.stringify({username, password})*/
+    const request: LoginRequest = {loginRequestDto: user};
+    return this.http.post(`${environment.apiUrl}auth/login`, request, {headers}) /!*JSON.stringify({username, password})*!/
+      .pipe(
+        tap(this.setToken),
+        catchError(this.handleError.bind(this)) /!*bind(this) used for this *!/
+      );
+  }*/
+
+  login(user: User) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    const request: LoginRequest = {loginRequestDto: user};
+    return this.http.post(`${environment.apiUrl}auth/login`, request, {headers}) /*JSON.stringify({username, password})*/
       .pipe(
         tap(this.setToken),
         catchError(this.handleError.bind(this)) /*bind(this) used for this */
       );
   }
+
+  // getAuthUserInfo() {
+  //   return this.http.get(`${environment.apiUrl}/auth/user-info`)
+  //     .pipe(
+  //       map(res => {
+  //         return res.json();
+  //       })
+  //     );
+  // }
 
   logout() {
     this.setToken(null);
@@ -41,6 +61,7 @@ export class AuthService {
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     const {message} = error.error.error;
+
     switch (message) {
       case 'INVALID_EMAIL':
         this.error$.next('Invalid email');
@@ -65,8 +86,20 @@ export class AuthService {
     }
   }
 
-  socialLogin(): void {
-    const t = 3;
+  // private setToken(response: AuthResponse | null) {
+  //   if (response) {
+  //     const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000) /*+ convert string to number*/
+  //     localStorage.setItem('api-token', response.apiToken);
+  //     localStorage.setItem('api-token-exp', expDate.toString());
+  //   } else {
+  //     localStorage.clear();
+  //   }
+  // }
+
+  socialLogin()/*: Observable<any> */{
+    return this.http.get(`${environment.apiUrl}auth/social-login`).subscribe(() => {
+      console.log('sent')
+    })
   }
 
 /*  getMe() {

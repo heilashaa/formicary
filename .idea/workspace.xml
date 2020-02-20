@@ -2,39 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134981e3-cd26-40e4-86c0-b617d4c6a17b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/interfaces/interfaces.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/auth.interceptor.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/article-page/article-page.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/article-page/article-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/article-page/article-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/campaign-page/campaign-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/campaign-page/campaign-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/article-card/article-card.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/article-card/article-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/article-card/article-card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/bonus-card/bonus-card.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/bonus-card/bonus-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/bonus-card/bonus-card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/campaign-card/campaign-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/campaign-card/campaign-card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/campaign-card/campaign-card.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/campaign-card/campaign-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/campaign-card/campaign-card.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-layout/main-layout.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main-layout/main-layout.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-layout/main-layout.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-layout/main-layout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main-layout/main-layout.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-page/main-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main-page/main-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-page/main-page.component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main-page/main-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main-page/main-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/create-campaign-page/create-campaign-page.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/create-campaign-page/create-campaign-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/create-campaign-page/create-campaign-page.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/interfaces/interfaces.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/interfaces/interfaces.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/profile/login-page/login-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/login-page/login-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/profile/login-page/login-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/login-page/login-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/profile-layout/profile-layout.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile-layout/profile-layout.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/profile-layout/profile-layout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile-layout/profile-layout.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/profile.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/profile.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/registration-page/registration-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/registration-page/registration-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/registration-page/registration-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/auth.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/registration-page/registration-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/registration-page/registration-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/auth.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +48,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.protractor.protractor_package" value="$PROJECT_DIR$/node_modules/protractor" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -96,6 +69,7 @@
     <configuration name="E2E Tests (formicary)" type="JavaScriptTestRunnerProtractor">
       <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
       <node-interpreter value="project" />
+      <protractor-package value="$PROJECT_DIR$/node_modules/protractor" />
       <protractor-options value="" />
       <envs />
       <scope-kind value="ALL" />
@@ -139,7 +113,7 @@
       <updated>1581772977068</updated>
       <workItem from="1581772981683" duration="115041000" />
       <workItem from="1582008226794" duration="18595000" />
-      <workItem from="1582046297127" duration="13509000" />
+      <workItem from="1582046297127" duration="35497000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1581960819657</created>
@@ -176,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581971003903</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="init +">
+      <created>1582060321375</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1582060321375</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +170,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="init +" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="849" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582136348455">
+      <screen x="61" y="24" width="1859" height="1056" />
+    </state>
+    <state x="849" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/61.24.1859.1056@61.24.1859.1056" timestamp="1582136348455" />
     <state x="1127" y="353" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582026633989">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
@@ -201,30 +186,30 @@
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
     <state x="980" y="194" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/61.24.1859.1056@61.24.1859.1056" timestamp="1581972104202" />
-    <state x="322" y="106" key="CommitChangelistDialog2" timestamp="1581971003434">
+    <state x="322" y="106" key="CommitChangelistDialog2" timestamp="1582060320830">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
-    <state x="322" y="106" key="CommitChangelistDialog2/61.24.1859.1056@61.24.1859.1056" timestamp="1581971003434" />
+    <state x="322" y="106" key="CommitChangelistDialog2/61.24.1859.1056@61.24.1859.1056" timestamp="1582060320830" />
     <state x="1014" y="239" key="FileChooserDialogImpl" timestamp="1582039711467">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
     <state x="1014" y="239" key="FileChooserDialogImpl/61.24.1859.1056@61.24.1859.1056" timestamp="1582039711467" />
-    <state width="875" height="157" key="GridCell.Tab.0.bottom" timestamp="1582053685806">
+    <state width="959" height="164" key="GridCell.Tab.0.bottom" timestamp="1582227183079">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
-    <state width="875" height="157" key="GridCell.Tab.0.bottom/61.24.1859.1056@61.24.1859.1056" timestamp="1582053685806" />
-    <state width="875" height="157" key="GridCell.Tab.0.center" timestamp="1582053685805">
+    <state width="959" height="164" key="GridCell.Tab.0.bottom/61.24.1859.1056@61.24.1859.1056" timestamp="1582227183079" />
+    <state width="959" height="164" key="GridCell.Tab.0.center" timestamp="1582227183078">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
-    <state width="875" height="157" key="GridCell.Tab.0.center/61.24.1859.1056@61.24.1859.1056" timestamp="1582053685805" />
-    <state width="875" height="157" key="GridCell.Tab.0.left" timestamp="1582053685804">
+    <state width="959" height="164" key="GridCell.Tab.0.center/61.24.1859.1056@61.24.1859.1056" timestamp="1582227183078" />
+    <state width="959" height="164" key="GridCell.Tab.0.left" timestamp="1582227183078">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
-    <state width="875" height="157" key="GridCell.Tab.0.left/61.24.1859.1056@61.24.1859.1056" timestamp="1582053685804" />
-    <state width="875" height="157" key="GridCell.Tab.0.right" timestamp="1582053685805">
+    <state width="959" height="164" key="GridCell.Tab.0.left/61.24.1859.1056@61.24.1859.1056" timestamp="1582227183078" />
+    <state width="959" height="164" key="GridCell.Tab.0.right" timestamp="1582227183079">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>
-    <state width="875" height="157" key="GridCell.Tab.0.right/61.24.1859.1056@61.24.1859.1056" timestamp="1582053685805" />
+    <state width="959" height="164" key="GridCell.Tab.0.right/61.24.1859.1056@61.24.1859.1056" timestamp="1582227183079" />
     <state x="1107" y="243" key="run.anything.popup" timestamp="1581966186824">
       <screen x="61" y="24" width="1859" height="1056" />
     </state>

@@ -43,6 +43,27 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
+/*  submit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.submitted = true;
+
+    const user: User = {
+      email: this.form.value.email,
+      password: this.form.value.password
+    };
+
+    this.auth.login(user).subscribe(() => {
+      this.form.reset()
+      this.router.navigate(['profile', 'id'])
+      this.submitted = false;
+    }, () => {
+      this.submitted = false;
+    });
+  }*/
+
   submit() {
     if (this.form.invalid) {
       return;
@@ -62,5 +83,13 @@ export class LoginPageComponent implements OnInit {
     }, () => {
       this.submitted = false;
     });
+  }
+
+  facebookSubmit() {
+    this.auth.socialLogin();
+  }
+
+  twitterSubmit() {
+    this.auth.socialLogin();
   }
 }

@@ -2,7 +2,7 @@
   <h4 class="center">Please, sign in with e-mail</h4>
   <div class="card col l4 offset-l4">
     <div *ngIf="auth.error$ | async as error">
-      {{ error }}
+      <h1>{{ error }}</h1>
     </div>
     <div *ngIf="message">
       {{ message }}
@@ -62,12 +62,16 @@
 <!--    SOCIAL LOGIN-->
     <div class="col card-content s12" style="padding-top: 6px">
       <div class="separator"></div>
-      <button class="btn waves-effect waves-light col s12  left-align" type="submit" name="action">
+      <button
+        (click)="facebookSubmit()"
+        class="btn waves-effect waves-light col s12  left-align" type="submit" name="action">
         <span class="left"><i class="fab fa-facebook-f"></i></span>
         Sign in with Facebook
       </button>
       <br><br>
-      <button class="btn waves-effect waves-light col s12  left-align" type="submit" name="action">
+      <button
+        (click)="twitterSubmit()"
+        class="btn waves-effect waves-light col s12  left-align" type="submit" name="action">
         <span class="left"><i class="fab fa-twitter"></i></span>
         Sign in with Twitter
       </button>
