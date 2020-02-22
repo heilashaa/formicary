@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
+import {AuthService} from 'angularx-social-login';
 
 export interface User {
   id?: number;
@@ -30,19 +31,25 @@ export interface RegistrationResponse {
   registrationResponse: { token: string; };
 }
 
+export interface SocialLoginResponse {
+  error: [];
+  socialLoginResponse: { token: string; };
+}
+
 export interface UserInfoResponse {
   error: [];
   authUser: User;
 }
 
 @Injectable({providedIn: 'root'})
-export class AuthService {
+export class AuthorizationService {
 
   public error$: Subject<string> = new Subject<string>();
 
   constructor(
     private http: HttpClient,
-    private router: Router) {}
+    private router: Router,
+    private authService: AuthService) {}
 
   get token(): string { return localStorage.getItem('token'); }
 
@@ -61,6 +68,24 @@ export class AuthService {
             localStorage.setItem('token', response.loginResponse.token);
             console.log('LOGIN_RESPONSE', response);
         }),
+        catchError(errors => {
+          this.error$.next(errors.error.error.messages[0]);
+          return throwError(errors);
+        })
+      );
+  }
+
+  socialLogin(user: User): Observable<any> {
+    const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    const request: RegistrationRequest = {registrationRequest: user};
+    console.log('SOCIAL_REGISTRATION_REQUEST', request);
+    return this.http.post<SocialLoginResponse>(`${environment.apiUrl}auth/social-login`, JSON.stringify(request), {headers})
+      .pipe(
+        tap(
+          response => {
+            localStorage.setItem('token', response.socialLoginResponse.token);
+            console.log('SOCIAL_REGISTRATION_RESPONSE', response);
+          }),
         catchError(errors => {
           this.error$.next(errors.error.error.messages[0]);
           return throwError(errors);
@@ -98,6 +123,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.authService.signOut();
     this.router.navigate(['profile', '/login']);
   }
 
@@ -107,11 +133,5 @@ export class AuthService {
 
   isAdmin(): boolean {
       return !!(this.isAuthenticated && this.role === 'ROLE_ADMIN');
-  }
-
-  socialLogin()/*: Observable<any> */{
-    return this.http.get(`${environment.apiUrl}auth/social-login`).subscribe(() => {
-      console.log('sent');
-    });
   }
 }

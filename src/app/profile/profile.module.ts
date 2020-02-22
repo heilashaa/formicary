@@ -45,7 +45,7 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [/*AuthService, AuthGuard*/]
+  providers: []
 })
 
 export class ProfileModule {}

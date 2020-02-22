@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService, User} from '../../services/auth.service';
+import {AuthorizationService, User} from '../../services/authorization.service';
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 import {flatMap} from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ export class RegistrationPageComponent implements OnInit {
   submitted = false;
 
   constructor(
-    public auth: AuthService,
+    public auth: AuthorizationService,
     private router: Router) {}
 
   ngOnInit() {

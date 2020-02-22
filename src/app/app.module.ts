@@ -11,11 +11,31 @@ import { CampaignPageComponent } from './campaign-page/campaign-page.component';
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { BonusCardComponent } from './components/bonus-card/bonus-card.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
-import {AuthService} from './services/auth.service';
+import {AuthorizationService} from './services/authorization.service';
 import {AuthGuard} from './services/auth.guard';
 import {AuthInterceptor} from './services/auth.interceptor';
 import {LoginGuard} from './services/login.guadr';
 import {AdminGuard} from './services/admin.guadr';
+
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import {environment} from '../environments/environment';
+
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(`${environment.google_api}`)
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider(`${environment.facebook_api}`)
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 const routes: Routes = [
   {
@@ -53,13 +73,18 @@ const  INTERCEPTOR_PROVIDER: Provider = {
     RouterModule.forRoot(routes, {
       preloadingStrategy: PreloadAllModules
     }),
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
   providers: [
-    AuthService,
+    AuthorizationService,
     AuthGuard,
     LoginGuard,
     AdminGuard,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
     INTERCEPTOR_PROVIDER
   ],
   bootstrap: [AppComponent]

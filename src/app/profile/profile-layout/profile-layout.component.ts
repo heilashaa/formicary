@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as MatCss from 'materialize-css/dist/js/materialize';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
+import {AuthorizationService} from '../../services/authorization.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class ProfileLayoutComponent implements OnInit {
 
-  constructor(private router: Router, public auth: AuthService) {}
+  constructor(private router: Router, public auth: AuthorizationService) {}
 
   ngOnInit(): void {
     MatCss.AutoInit();

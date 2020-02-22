@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
 
-import {AuthService} from '../../services/auth.service';
+import {AuthorizationService} from '../../services/authorization.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,7 +10,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthorizationService) { }
 
   ngOnInit(): void {
 

@@ -7,7 +7,7 @@ import {Environment} from './interface';
 export const environment: Environment = {
   production: false,
   apiUrl: 'http://localhost:8080/api/v1/',
-  google_api: 'HDNykArT7aF0FrxXA8VlU8yX',
+  google_api: '262215497220-ach1sfg32mrlmes6cp7meihp37ijk6oa.apps.googleusercontent.com',
   facebook_api: '526762058188362'
 };
 
