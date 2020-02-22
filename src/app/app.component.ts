@@ -6,12 +6,7 @@ import * as M from 'materialize-css/dist/js/materialize';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  count: number = 0;
-  name: string;
-  increase($event: any): void {
-    this.count++;
-    console.log($event);
-  }
+
   ngOnInit(): void {
     M.AutoInit();
   }

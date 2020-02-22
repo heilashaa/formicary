@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   constructor(
     public auth: AuthService,
@@ -14,8 +14,16 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.auth.isAuthenticated()) {
+    if (this.auth.isAdmin()) {
       return true;
+    } else if (this.auth.token) {
+      if (route.params.user_id.toString() === this.auth.id.toString()) {
+        console.log('REDIRECT_IF_IT_YOU_PROFILE_ID: ', route.params.user_id);
+        return true;
+      }
+      console.log('REDIRECT_IF_TRY_GET_ANOTHER_ID: ', route.params.user_id);
+      this.router.navigate(['/profile', this.auth.id]);
+      return false;
     } else {
       this.auth.logout();
       this.router.navigate(['/profile', 'login'], {

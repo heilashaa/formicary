@@ -6,7 +6,9 @@ import {Environment} from './interface';
 
 export const environment: Environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api/v1/'
+  apiUrl: 'http://localhost:8080/api/v1/',
+  google_api: 'HDNykArT7aF0FrxXA8VlU8yX',
+  facebook_api: '526762058188362'
 };
 
 /*

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
-
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,7 +8,7 @@ import * as M from 'materialize-css/dist/js/materialize';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
     M.AutoInit();

@@ -1,7 +1,7 @@
 <div class="row">
   <h4 class="center">Please, sign up</h4>
   <div class="card col l4 offset-l4">
-    <div *ngIf="auth.error$ | async as error">
+    <div  class="card red darken-2 grey-text text-lighten-5 center" *ngIf="auth.error$ | async as error">
       {{ error }}
     </div>
     <form [formGroup]="form" (ngSubmit)="submit()" class="col card-content s12 center" style="padding-bottom: 6px">

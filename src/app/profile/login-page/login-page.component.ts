@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {User} from '../../interfaces/interfaces';
-import {AuthService} from '../../services/auth.service';
-import {AuthGuard} from '../../services/auth.guard';
+import {AuthService, User} from '../../services/auth.service';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    private route: ActivatedRoute) { } /*public to use in template*/
+    private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -35,54 +34,38 @@ export class LoginPageComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: Params) => {
-      if (params['loginAgain']) {
-        this.message = 'Please, sign in';
-      } else if (params['authFailed']) {
-        this.message = 'Session finish/ Please, sign in again';
+      if (params['accessDenied']) {
+        this.message = 'Access is denied. Perhaps you do not have the necessary rights. Try sign in or get the necessary administrator privileges';
       }
     });
   }
 
-/*  submit() {
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.submitted = true;
-
-    const user: User = {
-      email: this.form.value.email,
-      password: this.form.value.password
-    };
-
-    this.auth.login(user).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['profile', 'id'])
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
-  }*/
-
   submit() {
-    if (this.form.invalid) {
-      return;
-    }
-
+    if (this.form.invalid) { return; }
     this.submitted = true;
-
     const user: User = {
       email: this.form.value.email,
       password: this.form.value.password
     };
 
-    this.auth.login(user).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['profile', 'id'])
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
+    this.auth.login(user)
+      .pipe(
+        flatMap(() => {
+          return this.auth.getUserInfo();
+        })
+      )
+      .subscribe(
+        userInfoResponse => {
+          this.form.reset();
+          const user: User = userInfoResponse.authUser;
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['profile', user.id]);
+          this.submitted = false;
+      },
+        () => {
+          this.submitted = false;
+        }
+    );
   }
 
   facebookSubmit() {
@@ -90,6 +73,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   twitterSubmit() {
-    this.auth.socialLogin();
+    return null;
   }
 }

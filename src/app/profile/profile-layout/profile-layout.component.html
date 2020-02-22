@@ -2,21 +2,21 @@
   <nav>
     <div class="nav-wrapper">
       <a [routerLink]="['/']" class="brand-logo"><i class="fab fa-angellist"></i> Formicary</a>
-      <a [routerLink]="['/']" *ngIf="auth.isAuthenticated()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="" (click)="undo($event)" *ngIf="auth.isAuthenticated()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down" *ngIf="auth.isAuthenticated()">
-        <li><a [routerLink]="['/profile', 123, 'campaign']"><i class="fas fa-server fa-2x"></i>&emsp;Campaigns</a></li>
-        <li><a [routerLink]="['/profile', 123]"><i class="fas fa-user fa-2x"></i>&emsp;My profile</a></li>
-        <li><a [routerLink]="['/profile', 123, 'users']"><i class="fas fa-users fa-2x"></i>&emsp;All users</a></li>
-        <li><a [routerLink]="['/profile','bonus']"><i class="fas fa-euro-sign fa-2x"></i>&emsp;Bonuses</a></li>
+        <li><a [routerLink]="['/profile', auth.id, 'campaign']"><i class="fas fa-server fa-2x"></i>&emsp;Campaigns</a></li>
+        <li><a [routerLink]="['/profile', auth.id]"><i class="fas fa-user fa-2x"></i>&emsp;Profile</a></li>
+        <li *ngIf="auth.isAdmin()"><a [routerLink]="['/profile', auth.id, 'users']"><i class="fas fa-users fa-2x"></i>&emsp;All users</a></li>
+        <li><a [routerLink]="['/profile', auth.id, 'bonus']"><i class="fas fa-euro-sign fa-2x"></i>&emsp;Bonuses</a></li>
         <li><a href="" (click)="logout($event)"><i class="fas fa-sign-out-alt fa-2x"></i>&emsp;Logout</a></li>
       </ul>
     </div>
   </nav>
   <ul class="sidenav" id="mobile-demo" *ngIf="auth.isAuthenticated()">
-    <li><a [routerLink]="['/profile', 123, 'campaign']"><i class="fas fa-server fa-2x"></i>&emsp;Campaigns</a></li>
-    <li><a [routerLink]="['/profile', 123]"><i class="fas fa-user fa-2x"></i>&emsp;My profile</a></li>
-    <li><a [routerLink]="['/profile', 123, 'users']"><i class="fas fa-users fa-2x"></i>&emsp;All users</a></li>
-    <li><a [routerLink]="['/profile','bonus']"><i class="fas fa-euro-sign fa-2x"></i>&emsp;Bonuses</a></li>
+    <li><a [routerLink]="['/profile', auth.id, 'campaign']"><i class="fas fa-server fa-2x"></i>&emsp;Campaigns</a></li>
+    <li><a [routerLink]="['/profile', auth.id]"><i class="fas fa-user fa-2x"></i>&emsp;Profile</a></li>
+    <li *ngIf="auth.isAdmin()"><a [routerLink]="['/profile', auth.id, 'users']"><i class="fas fa-users fa-2x"></i>&emsp;All users</a></li>
+    <li><a [routerLink]="['/profile', auth.id,'bonus']"><i class="fas fa-euro-sign fa-2x"></i>&emsp;Bonuses</a></li>
     <li><a href="" (click)="logout($event)"><i class="fas fa-sign-out-alt fa-2x"></i>&emsp;Logout</a></li>
   </ul>
 </header>

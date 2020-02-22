@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
 
   constructor(
     public auth: AuthService,
@@ -14,15 +14,10 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.auth.isAuthenticated()) {
+    if (!this.auth.isAuthenticated()) {
       return true;
     } else {
-      this.auth.logout();
-      this.router.navigate(['/profile', 'login'], {
-        queryParams: {
-          accessDenied: true
-        }
-      });
+      this.router.navigate(['/profile', JSON.parse(localStorage.getItem('user')).id]);
     }
   }
 }

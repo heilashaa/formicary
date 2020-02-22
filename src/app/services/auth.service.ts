@@ -1,117 +1,117 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {AuthResponse, LoginRequest, User} from '../interfaces/interfaces';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, Subject, throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+
+
+export interface User {
+  id?: number;
+  username?: string;
+  email: string;
+  password?: string;
+  role?: string;
+  locale?: string;
+  theme?: string;
+}
+
+export interface LoginRequest { loginRequest: User; }
+
+export interface LoginResponse {
+  error: [];
+  loginResponse: { token: string; };
+}
+
+export interface RegistrationRequest { registrationRequest: User; }
+
+export interface RegistrationResponse {
+  error: [];
+  registrationResponse: { token: string; };
+}
+
+export interface UserInfoResponse {
+  error: [];
+  authUser: User;
+}
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  public error$: Subject<string> = new Subject<string>(); /*$ meen stream*/
+  public error$: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router) {}
 
-  get token(): string {
-    const expDate = new Date(localStorage.getItem('api-token-exp'));
-    if (new Date() > expDate) {
-      this.logout();
-      return null;
-    }
-    return localStorage.getItem('api-token');
-  }
-/*  login(user: User): Observable<any> {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    const request: LoginRequest = {loginRequestDto: user};
-    return this.http.post(`${environment.apiUrl}auth/login`, request, {headers}) /!*JSON.stringify({username, password})*!/
+  get token(): string { return localStorage.getItem('token'); }
+
+  get id(): string { return JSON.parse(localStorage.getItem('user')).id; }
+
+  get role(): string { return JSON.parse(localStorage.getItem('user')).role; }
+
+  login(user: User): Observable<any> {
+    const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    const request: LoginRequest = {loginRequest: user};
+    console.log('LOGIN_REQUEST', request);
+    return this.http.post<LoginResponse>(`${environment.apiUrl}auth/login`, JSON.stringify(request), {headers})
       .pipe(
-        tap(this.setToken),
-        catchError(this.handleError.bind(this)) /!*bind(this) used for this *!/
-      );
-  }*/
-
-  login(user: User) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    const request: LoginRequest = {loginRequestDto: user};
-    return this.http.post(`${environment.apiUrl}auth/login`, request, {headers}) /*JSON.stringify({username, password})*/
-      .pipe(
-        tap(this.setToken),
-        catchError(this.handleError.bind(this)) /*bind(this) used for this */
+        tap(
+          response => {
+            localStorage.setItem('token', response.loginResponse.token);
+            console.log('LOGIN_RESPONSE', response);
+        }),
+        catchError(errors => {
+          this.error$.next(errors.error.error.messages[0]);
+          return throwError(errors);
+        })
       );
   }
 
-  // getAuthUserInfo() {
-  //   return this.http.get(`${environment.apiUrl}/auth/user-info`)
-  //     .pipe(
-  //       map(res => {
-  //         return res.json();
-  //       })
-  //     );
-  // }
+  registration(user: User): Observable<any> {
+    const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    const request: RegistrationRequest = {registrationRequest: user};
+    console.log('REGISTRATION_REQUEST', request);
+    return this.http.post<RegistrationResponse>(`${environment.apiUrl}auth/registration`, JSON.stringify(request), {headers})
+      .pipe(
+        tap(
+          response => {
+            localStorage.setItem('token', response.registrationResponse.token);
+            console.log('REGISTRATION_RESPONSE', response);
+          }),
+        catchError(errors => {
+          this.error$.next(errors.error.error.messages[0]);
+          return throwError(errors);
+        })
+      );
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get<UserInfoResponse>(`${environment.apiUrl}auth/user-info`)
+    .pipe(
+      tap(response => {
+        console.log('USER_INFO_RESPONSE', response);
+      })
+    );
+  }
 
   logout() {
-    this.setToken(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['profile', '/login']);
   }
 
   isAuthenticated(): boolean {
-    return !!this.token; /*!! cast to boolean*/
+    return !!(localStorage.getItem('token') && localStorage.getItem('user'));
   }
 
-  private handleError(error: HttpErrorResponse): Observable<any> {
-    const {message} = error.error.error;
-
-    switch (message) {
-      case 'INVALID_EMAIL':
-        this.error$.next('Invalid email');
-        break;
-      case 'EMAIL_NOT_FOUND':
-        this.error$.next('No such email');
-        break;
-      case 'INVALID_PASSWORD':
-        this.error$.next('Invalid password');
-        break;
-    }
-    return throwError(error);
+  isAdmin(): boolean {
+      return !!(this.isAuthenticated && this.role === 'ROLE_ADMIN');
   }
-
-  private setToken(response: AuthResponse | null) {
-    if (response) {
-      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000) /*+ convert string to number*/
-      localStorage.setItem('api-token', response.apiToken);
-      localStorage.setItem('api-token-exp', expDate.toString());
-    } else {
-      localStorage.clear();
-    }
-  }
-
-  // private setToken(response: AuthResponse | null) {
-  //   if (response) {
-  //     const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000) /*+ convert string to number*/
-  //     localStorage.setItem('api-token', response.apiToken);
-  //     localStorage.setItem('api-token-exp', expDate.toString());
-  //   } else {
-  //     localStorage.clear();
-  //   }
-  // }
 
   socialLogin()/*: Observable<any> */{
     return this.http.get(`${environment.apiUrl}auth/social-login`).subscribe(() => {
-      console.log('sent')
-    })
-  }
-
-/*  getMe() {
-    return this.http.get(`${environment.apiUrl}auth/me`).map(res => res.json());
-  }*/
-  registration(user: User): Observable<any> {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(`${environment.apiUrl}auth/registration`, user, {headers})
-      .pipe(
-        tap(this.setToken),
-        catchError(this.handleError.bind(this))
-      );
+      console.log('sent');
+    });
   }
 }

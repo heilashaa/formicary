@@ -13,12 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
     private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.isAuthenticated()) {
+    if (!!this.auth.token) {
       req = req.clone({
-        setParams: {
-          auth: this.auth.token
-        }
-      });
+          headers: req.headers.set('Authorization', 'Bearer ' + this.auth.token)});
     }
     return next.handle(req)
       .pipe(
@@ -28,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.auth.logout();
             this.router.navigate(['/profile', 'login'], {
               queryParams: {
-                authFailed: true
+                accessDenied: true
               }
             });
           }

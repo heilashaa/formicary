@@ -2,5 +2,7 @@ import {Environment} from './interface';
 
 export const environment: Environment = {
   production: true,
-  apiUrl: 'http://localhost:8080/api/v1/'
+  apiUrl: 'http://localhost:8080/api/v1/',
+  google_api: '',
+  facebook_api: ''
 };

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../interfaces/interfaces';
-import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
+import {AuthService, User} from '../../services/auth.service';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration-page',
@@ -35,24 +35,31 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.invalid) {
-      return;
-    }
-
+    if (this.form.invalid) { return; }
     this.submitted = true;
-
     const user: User = {
       username: this.form.value.username,
       email: this.form.value.email,
       password: this.form.value.password
     };
 
-    this.auth.registration(user).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['profile', 'id'])
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
+    this.auth.registration(user)
+      .pipe(
+        flatMap(() => {
+          return this.auth.getUserInfo();
+        })
+      )
+      .subscribe(
+        userInfoResponse => {
+          this.form.reset();
+          const user: User = userInfoResponse.authUser;
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['profile', user.id]);
+          this.submitted = false;
+        },
+        () => {
+          this.submitted = false;
+        }
+      );
   }
 }

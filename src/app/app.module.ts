@@ -14,6 +14,8 @@ import { ArticlePageComponent } from './article-page/article-page.component';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/auth.guard';
 import {AuthInterceptor} from './services/auth.interceptor';
+import {LoginGuard} from './services/login.guadr';
+import {AdminGuard} from './services/admin.guadr';
 
 const routes: Routes = [
   {
@@ -21,7 +23,7 @@ const routes: Routes = [
       {path: '', redirectTo: '/', pathMatch: 'full'}, /*for redirecting from MainLayout to MainPage*/
       {path: '', component: MainPageComponent},
       {path: 'campaign/:id', component: CampaignPageComponent},
-      {path: 'campaign/:id/article/:a_id', component: ArticlePageComponent}
+      {path: 'campaign/:id/article/:article_id', component: ArticlePageComponent}
     ]
   },
   {
@@ -53,7 +55,13 @@ const  INTERCEPTOR_PROVIDER: Provider = {
     }),
     HttpClientModule
   ],
-  providers: [AuthService, AuthGuard, INTERCEPTOR_PROVIDER],
+  providers: [
+    AuthService,
+    AuthGuard,
+    LoginGuard,
+    AdminGuard,
+    INTERCEPTOR_PROVIDER
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
