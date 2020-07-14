@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="divider"></div>
+  <div class="section">
+    <h5>BONUSES</h5>
+    <div class="row">
+      <table>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let bonus of bonuses; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>{{ bonus.name }}</td>
+          <td><quill-view-html [content]="bonus.description"></quill-view-html></td>
+          <td>{{ bonus.amount }}</td>
+          <td><a (click)="delete(bonus.id)" class="waves-effect waves-light btn-small"><i class="material-icons left">delete</i>delete</a></td>
+        </tr>
+        </tbody>
+      </table><br><br>
+      <a [routerLink]="['/profile', userId,'campaign', campaignId,'bonus', 'create']" class="waves-effect waves-light btn"><i class="material-icons left">add_box</i>Add bonus</a>
+    </div>
+  </div>
+</div>
+

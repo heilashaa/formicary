@@ -1,1 +1,129 @@
-<p>edit-campaign-page works!</p>
+<div class="container">
+  <h5>EDIT CAMPAIGN</h5>
+  <div class="card">
+    <div class="row">
+      <div class="col s12">
+
+        <!--        TAGS-->
+        <div class="col card-content s12">
+          <div class="row chips">
+
+            <tag-input
+              [(ngModel)]="campaignChips"
+              [onlyFromAutocomplete]="false"
+              theme='minimal'>
+              <tag-input-dropdown
+                [showDropdownIfEmpty]="true"
+                [autocompleteItems]="existingTags"
+              ></tag-input-dropdown>
+            </tag-input>
+
+          </div>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="col card-content s12" style="padding-bottom: 6px">
+          <div class="row">
+            <!--        TITLE-->
+            <div class="input-field col s6">
+              <span>Title</span>
+              <input
+                formControlName="title"
+                [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+                id="title" type="text" autocomplete="off">
+              <span
+                *ngIf="form.get('title').touched &&
+                form.get('title').invalid &&
+                form.get('title').errors.required"
+                class="helper-text" data-error="required field"></span>
+              <span
+                *ngIf="form.get('title').touched &&
+                form.get('title').invalid &&
+                form.get('title').errors.minlength"
+                class="helper-text"
+                [attr.data-error]="'Min title length '+
+                form.get('title').errors.minlength.actualLength+
+                '/'+
+                form.get('title').errors.minlength.requiredLength"
+              ></span>
+            </div>
+            <!--        CATEGORY-->
+            <div class="col s6">
+              <span>Category</span>
+              <select formControlName="category" id="category" class="browser-default">
+                <option  *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+              </select>
+            </div>
+            <!--        DESCRIPTION-->
+            <div class="col s12">
+              <span>Description</span>
+              <quill-editor
+                formControlName="description"
+                id="description" ></quill-editor>
+            </div>
+            <!--        TARGET-->
+            <div class="input-field col s6">
+              <span>Target</span>
+              <input
+                [ngClass]="{invalid: form.get('target').touched && form.get('target').invalid}"
+                formControlName="target"
+                id="target" type="number" autocomplete="off">
+              <span
+                *ngIf="form.get('target').touched &&
+                form.get('target').invalid &&
+                form.get('target').errors.required"
+                class="helper-text" data-error="required field, numbers only"></span>
+              <span
+                *ngIf="form.get('target').touched &&
+                form.get('target').invalid &&
+                form.get('target').errors.min"
+                class="helper-text"
+                [attr.data-error]="'Value can not be negative. How it '+
+                form.get('target').errors.min.actual"
+              ></span>
+            </div>
+            <!--        EXPIRATION-->
+            <div class="input-field col s6">
+              <span>Expiration</span>
+              <input
+                formControlName="expiration"
+                id="expiration" type="date"
+                value="{{form.get('expiration').value | date:'yyyy-MM-dd'}}"
+                min="{{form.get('expiration').value | date:'yyyy-MM-dd'}}">
+
+            </div>
+            <!--        YOUTUBE LINK-->
+            <div class="input-field col s12">
+              <span>YouTube link</span>
+              <input
+                formControlName="youtube"
+                id="youtube" type="text" autocomplete="off">
+            </div>
+          </div>
+          <div class="row">
+            <button
+              [disabled]="form.invalid || submitted"
+              class="col s12 btn waves-effect waves-light"
+              type="submit" name="submit">SAVE CHANGES IN CAMPAIGN
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <h5>EDIT CAMPAIGN SETTINGS</h5>
+  <div class="card">
+
+    <div class="row">
+      <div class="col s12">
+        <ul class="collection with-header">
+          <li class="collection-item"><div>Edit images<a href="#" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+          <li class="collection-item"><div>Edit bonuses<a [routerLink]="['/profile', userId,'campaign',campaignId,'bonus']" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+          <li class="collection-item"><div>Edit news<a href="#" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

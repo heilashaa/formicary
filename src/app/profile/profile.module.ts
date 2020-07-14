@@ -12,6 +12,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthGuard} from '../services/auth.guard';
 import {LoginGuard} from '../services/login.guadr';
 import {AdminGuard} from '../services/admin.guadr';
+import {TagInputModule} from 'ngx-chips';
+import {CreateCampaignPageComponent} from './create-campaign-page/create-campaign-page.component';
+import {QuillModule} from 'ngx-quill';
+import {EmbedVideo} from 'ngx-embed-video/dist';
+import {FilterPipe} from '../services/filter.pipe';
+import { BonusPageComponent } from './bonus-page/bonus-page.component';
+import { CreateBonusPageComponent } from './create-bonus-page/create-bonus-page.component';
 
 const routes: Routes = [
   {
@@ -21,7 +28,11 @@ const routes: Routes = [
       {path: 'registration', component: RegistrationPageComponent, canActivate: [LoginGuard]},
       {path: ':user_id', component: ProfilePageComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: ':user_id/campaign/:camp_id/edit', component: EditCampaignPageComponent, canActivate: [AuthGuard, AdminGuard]},
-      {path: ':user_id/campaign', component: CampaignsPageComponent, canActivate: [AuthGuard, AdminGuard]}
+      {path: ':user_id/campaign', component: CampaignsPageComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: ':user_id/campaign/create', component: CreateCampaignPageComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: ':user_id/campaign/:camp_id/bonus', component: BonusPageComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: ':user_id/campaign/:camp_id/bonus/create', component: CreateBonusPageComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: ':user_id/campaign/:camp_id/bonus/:bonus_id/edit', component: EditCampaignPageComponent, canActivate: [AuthGuard, AdminGuard]}
     ]
   }
 ];
@@ -33,14 +44,21 @@ const routes: Routes = [
     RegistrationPageComponent,
     ProfilePageComponent,
     EditCampaignPageComponent,
-    CampaignsPageComponent
+    CampaignsPageComponent,
+    CreateCampaignPageComponent,
+    FilterPipe,
+    BonusPageComponent,
+    CreateBonusPageComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    HttpClientModule
+    HttpClientModule,
+    TagInputModule,
+    QuillModule,
+    EmbedVideo.forRoot()
   ],
   exports: [
     RouterModule

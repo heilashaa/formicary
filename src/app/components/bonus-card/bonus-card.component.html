@@ -2,15 +2,14 @@
   <div class="col s12">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">Bonus Title</span>
-        <span class="card-title"><b>300$</b></span>
+        <span class="card-title">{{bonus.name}}</span>
+        <span class="card-title"><b>{{bonus.amount}}$</b></span>
         <p>
-          I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.
+          <quill-view-html [content]="bonus.description"></quill-view-html>
         </p>
       </div>
       <div class="card-action">
-        <button class="btn waves-effect waves-light" type="submit" name="submit">PROMOTE</button>
+        <button [disabled]="!auth.isAuthenticated()" (click)="by(bonus.id)" class="btn waves-effect waves-light" type="submit" name="submit">PROMOTE</button>
       </div>
     </div>
   </div>

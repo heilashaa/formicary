@@ -3,56 +3,27 @@
   <div class="divider"></div>
   <div class="section">
     <h5>LATEST UPDATE CAMPAIGNS</h5>
-    <div class="row">
-        <app-campaign-card></app-campaign-card>
-        <app-campaign-card></app-campaign-card>
-        <app-campaign-card></app-campaign-card>
-    </div>
-  </div>
-<!--  CAMPAIGNS WITH THE BIGGEST RATINGS-->
-  <div class="divider"></div>
-  <div class="section">
-    <h5>CAMPAIGNS WITH THE BIGGEST RATINGS</h5>
-    <div class="row">
-        <app-campaign-card></app-campaign-card>
-        <app-campaign-card></app-campaign-card>
+    <div
+      *ngIf="campaignByModification$ | async as campaigns"
+      class="row">
+
+        <app-campaign-card
+
+          *ngFor="let campaign of campaigns"
+          [campaign]="campaign"
+
+        ></app-campaign-card>
+
     </div>
   </div>
 <!--  TAGS-->
   <div class="divider"></div>
   <div class="section">
-    <h5>TAGS</h5>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
-    <div class="chip"><a href="">Tag 1</a></div>
+    <h5 *ngIf="allTags">TAGS</h5>
+    <div *ngIf="allTags">
+      <div *ngFor="let tags of allTags"
+        class="chip"><a href="#">{{tags}}</a>
+      </div>
+    </div>
   </div>
 </div>

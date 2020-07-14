@@ -1,25 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, Provider} from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
-import { CampaignCardComponent } from './components/campaign-card/campaign-card.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { CampaignPageComponent } from './campaign-page/campaign-page.component';
-import { ArticleCardComponent } from './components/article-card/article-card.component';
-import { BonusCardComponent } from './components/bonus-card/bonus-card.component';
-import { ArticlePageComponent } from './article-page/article-page.component';
+import {AppComponent} from './app.component';
+import {MainLayoutComponent} from './main-layout/main-layout.component';
+import {CampaignCardComponent} from './components/campaign-card/campaign-card.component';
+import {MainPageComponent} from './main-page/main-page.component';
+import {CampaignPageComponent} from './campaign-page/campaign-page.component';
+import {ArticleCardComponent} from './components/article-card/article-card.component';
+import {BonusCardComponent} from './components/bonus-card/bonus-card.component';
+import {ArticlePageComponent} from './article-page/article-page.component';
 import {AuthorizationService} from './services/authorization.service';
 import {AuthGuard} from './services/auth.guard';
 import {AuthInterceptor} from './services/auth.interceptor';
 import {LoginGuard} from './services/login.guadr';
 import {AdminGuard} from './services/admin.guadr';
 
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import {AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule} from 'angularx-social-login';
 import {environment} from '../environments/environment';
+import {QuillModule} from 'ngx-quill';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 const config = new AuthServiceConfig([
@@ -42,8 +44,8 @@ const routes: Routes = [
     path: '', component: MainLayoutComponent, children: [
       {path: '', redirectTo: '/', pathMatch: 'full'}, /*for redirecting from MainLayout to MainPage*/
       {path: '', component: MainPageComponent},
-      {path: 'campaign/:id', component: CampaignPageComponent},
-      {path: 'campaign/:id/article/:article_id', component: ArticlePageComponent}
+      {path: 'campaign/:campaign_id', component: CampaignPageComponent},
+      {path: 'campaign/:campaign_id/article/:article_id', component: ArticlePageComponent}
     ]
   },
   {
@@ -74,7 +76,11 @@ const  INTERCEPTOR_PROVIDER: Provider = {
       preloadingStrategy: PreloadAllModules
     }),
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    QuillModule.forRoot(),
+    NoopAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthorizationService,

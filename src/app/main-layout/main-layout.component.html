@@ -14,7 +14,6 @@
             </div>
           </div>
         </li>
-        <li><a href=""><i class="fas fa-server fa-2x"></i>&emsp;All campaigns</a></li>
         <li><a href=""><i class="fas fa-newspaper fa-2x"></i>&emsp;News</a></li>
         <li *ngIf="!auth.isAuthenticated()"><a [routerLink]="['/profile', 'login']"><i class="fas fa-sign-in-alt fa-2x"></i>&emsp;Sign in</a></li>
         <li *ngIf="auth.isAuthenticated()"><a [routerLink]="['/profile', 'login']"><i class="fas fa-user-circle fa-2x"></i>&emsp;My profile</a></li>

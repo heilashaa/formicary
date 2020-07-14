@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthorizationService} from '../../services/authorization.service';
+import {Bonus} from '../../services/campaign.service';
 
 @Component({
   selector: 'app-bonus-card',
@@ -6,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BonusCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() bonus: Bonus;
 
-  ngOnInit() {
+  constructor(private auth: AuthorizationService) { }
+
+  ngOnInit() {}
+
+  by(id: number) {
+    return null;
   }
-
 }

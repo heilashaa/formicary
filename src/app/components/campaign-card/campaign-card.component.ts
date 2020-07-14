@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Campaign} from '../../services/campaign.service';
 
 @Component({
   selector: 'app-campaign-card',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CampaignCardComponent implements OnInit {
 
+  @Input() campaign: Campaign;
+
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

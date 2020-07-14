@@ -1,0 +1,72 @@
+<div class="container">
+  <h5>CREATE BONUS</h5>
+  <div class="card">
+    <div class="row">
+      <div class="col s12">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="col card-content s12" style="padding-bottom: 6px">
+          <div class="row">
+            <!--        TITLE-->
+            <div class="input-field col s6">
+              <input
+                formControlName="title"
+                [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+                id="title" type="text" autocomplete="off">
+              <label for="title">Title</label>
+              <span
+                *ngIf="form.get('title').touched &&
+                form.get('title').invalid &&
+                form.get('title').errors.required"
+                class="helper-text" data-error="required field"></span>
+              <span
+                *ngIf="form.get('title').touched &&
+                form.get('title').invalid &&
+                form.get('title').errors.minlength"
+                class="helper-text"
+                [attr.data-error]="'Min title length '+
+                form.get('title').errors.minlength.actualLength+
+                '/'+
+                form.get('title').errors.minlength.requiredLength"
+              ></span>
+            </div>
+            <!--        DESCRIPTION-->
+            <div class="col s12">
+              <label>Description</label>
+              <quill-editor
+                formControlName="description"
+                id="description" ></quill-editor>
+            </div>
+            <!--        AMOUNT-->
+            <div class="input-field col s6">
+              <input
+                [ngClass]="{invalid: form.get('amount').touched && form.get('amount').invalid}"
+                formControlName="amount"
+                id="amount" type="number" autocomplete="off">
+              <label for="amount">Amount</label>
+              <span
+                *ngIf="form.get('amount').touched &&
+                form.get('amount').invalid &&
+                form.get('amount').errors.required"
+                class="helper-text" data-error="required field, numbers only"></span>
+              <span
+                *ngIf="form.get('amount').touched &&
+                form.get('amount').invalid &&
+                form.get('amount').errors.min"
+                class="helper-text"
+                [attr.data-error]="'Value can not be negative. How it '+
+                form.get('amount').errors.min.actual"
+              ></span>
+            </div>
+          </div>
+          <div class="row">
+            <button
+              [disabled]="form.invalid || submitted"
+              class="col s12 btn waves-effect waves-light"
+              type="submit" name="submit">SAVE BONUS
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
